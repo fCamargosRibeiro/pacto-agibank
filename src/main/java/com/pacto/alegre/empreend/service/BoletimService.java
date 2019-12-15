@@ -37,11 +37,13 @@ public class BoletimService {
             Optional<GrupoAtividadeResidencial> optGrupo = grupoAtividadeResidencialRepository.findByLogradouroAndNumero(boletimInput.getLogradouro().toUpperCase(), Integer.parseInt(boletimInput.getNumero()));
             Optional<Atividade> optAtividade = atividadeRepository.findBySubclasse(boletimInput.getCnae());
 
-            Optional<TipoInterferencia> optTipo = tipoInterferenciaRepository.findByOidTipoAndNivel(optAtividade.get().getOidTipo(), optAtividade.get().getInterferencia());
-            if(optGrupo.isPresent() && optTipo.isPresent()) {
-                Optional<GrupoAtividade> optGrupoAtividade = grupoAtividadeRepository.findByCodGrupoAtividadeAndGa(optTipo.get().getCodGrupoAtividade(), optGrupo.get().getGa().toString());
-                if(optGrupo.isPresent()){
-                    output.setDeferido(optGrupoAtividade.get().getRestricao().equalsIgnoreCase(RESIDENCIAL_EXCLUSIVO));
+            if(optAtividade.isPresent() && optGrupo.isPresent()) {
+                Optional<TipoInterferencia> optTipo = tipoInterferenciaRepository.findByOidTipoAndNivel(optAtividade.get().getOidTipo(), optAtividade.get().getInterferencia());
+                if (optTipo.isPresent()) {
+                    Optional<GrupoAtividade> optGrupoAtividade = grupoAtividadeRepository.findByCodGrupoAtividadeAndGa(optTipo.get().getCodGrupoAtividade(), optGrupo.get().getGa().toString());
+                    if (optGrupo.isPresent()) {
+                        output.setDeferido(optGrupoAtividade.get().getRestricao().equalsIgnoreCase(RESIDENCIAL_EXCLUSIVO));
+                    }
                 }
             }
         }
