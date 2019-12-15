@@ -12,7 +12,6 @@ import com.pacto.alegre.empreend.repository.GrupoAtividadeResidencialRepository;
 import com.pacto.alegre.empreend.repository.TipoInterferenciaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
