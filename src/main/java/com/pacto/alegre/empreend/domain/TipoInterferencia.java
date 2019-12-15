@@ -17,11 +17,11 @@ public class TipoInterferencia {
     @Column(name = "oid_tipo_interferencia")
     private Integer oidTipoInterferencia;
     @Basic(optional = false)
-    @Column(name = "cod_grupo_atividade")
+    @Column(name = "cod_tipo_interferencia")
     private String codGrupoAtividade;
     @Basic(optional = false)
-    @Column(name = "cod_tipo_interferencia")
-    private String codTipoInterferencia;
+    @Column(name = "nivel")
+    private String nivel;
     @JoinColumn(name = "oid_tipo", referencedColumnName = "oid_tipo")
     @ManyToOne(optional = false)
     private Tipo oidTipo;

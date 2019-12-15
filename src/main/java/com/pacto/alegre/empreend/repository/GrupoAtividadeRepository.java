@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface GrupoAtividadeRepository extends JpaRepository<GrupoAtividade, Long> {
-    Optional<GrupoAtividade> findByCodGrupoAtividadeAndRestricao(String codGrupo, String ga);
+    Optional<GrupoAtividade> findByCodGrupoAtividadeAndGa(String codGrupoAtividade, String ga);
 }

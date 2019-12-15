@@ -20,10 +20,10 @@ public class GrupoAtividade {
     @Column(name = "cod_grupo_atividade")
     private String codGrupoAtividade;
     @Basic(optional = false)
+    @Column(name = "ga")
+    private String ga;
+    @Basic(optional = false)
     @Column(name = "restricao")
     private String restricao;
-    @Basic(optional = false)
-    @Column(name = "cod_atividade")
-    private String codAtividade;
 
 }

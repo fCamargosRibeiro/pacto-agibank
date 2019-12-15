@@ -8,6 +8,6 @@ import lombok.*;
 @Getter
 @Setter
 public class BoletimOutput {
-    private Boolean isDeferido;
+    private boolean isDeferido;
     private String message;
 }

@@ -23,31 +23,31 @@ public class BoletimService {
     private AtividadeRepository atividadeRepository;
     private GrupoAtividadeRepository grupoAtividadeRepository;
     private TipoInterferenciaRepository tipoInterferenciaRepository;
-    private final String RESIDENCIAL_EXCLUSIVO = "0";
 
     public BoletimOutput validacaoPreviaEndereco(BoletimInput boletimInput) {
 
         BoletimOutput output = new BoletimOutput();
 
+        String RESIDENCIAL_EXCLUSIVO = "0";
         if(boletimInput.getCnae() == null){ // PONTO DE REFERENCIA
             Optional<GrupoAtividadeResidencial> optGrupo = grupoAtividadeResidencialRepository.findByLogradouroAndNumero(boletimInput.getLogradouro().toUpperCase(), Integer.parseInt(boletimInput.getNumero()));
             if(optGrupo.isPresent()){
-                output.setIsDeferido(optGrupo.get().getUso().equalsIgnoreCase(RESIDENCIAL_EXCLUSIVO));
+                output.setDeferido(optGrupo.get().getUso().equalsIgnoreCase(RESIDENCIAL_EXCLUSIVO));
             }
         } else {
             Optional<GrupoAtividadeResidencial> optGrupo = grupoAtividadeResidencialRepository.findByLogradouroAndNumero(boletimInput.getLogradouro().toUpperCase(), Integer.parseInt(boletimInput.getNumero()));
             Optional<Atividade> optAtividade = atividadeRepository.findBySubclasse(boletimInput.getCnae());
-            Optional<TipoInterferencia> optTipo = tipoInterferenciaRepository.findByOidTipoAndCodTipoInterferencia(optAtividade.get().getOidTipo(), optAtividade.get().getInterferencia()) ;
-            System.out.println(optTipo.get().getCodGrupoAtividade() + " - - " + optGrupo.get().getGa().toString() );
-            Optional<GrupoAtividade> optGrupoAtividade = grupoAtividadeRepository.findByCodGrupoAtividadeAndRestricao(optTipo.get().getCodGrupoAtividade(), optGrupo.get().getGa().toString());
 
-
-            if(optGrupo.isPresent()){
-                output.setIsDeferido(optGrupoAtividade.get().getCodAtividade().equalsIgnoreCase(RESIDENCIAL_EXCLUSIVO));
+            Optional<TipoInterferencia> optTipo = tipoInterferenciaRepository.findByOidTipoAndNivel(optAtividade.get().getOidTipo(), optAtividade.get().getInterferencia());
+            if(optGrupo.isPresent() && optTipo.isPresent()) {
+                Optional<GrupoAtividade> optGrupoAtividade = grupoAtividadeRepository.findByCodGrupoAtividadeAndGa(optTipo.get().getCodGrupoAtividade(), optGrupo.get().getGa().toString());
+                if(optGrupo.isPresent()){
+                    output.setDeferido(optGrupoAtividade.get().getRestricao().equalsIgnoreCase(RESIDENCIAL_EXCLUSIVO));
+                }
             }
         }
 
-        output.setMessage(output.getIsDeferido() ? "Deferido" : "Indeferido");
+        output.setMessage(output.isDeferido() ? "Deferido" : "Indeferido");
 
         return output;
     }
