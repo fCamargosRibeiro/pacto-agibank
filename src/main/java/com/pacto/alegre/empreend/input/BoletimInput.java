@@ -10,5 +10,6 @@ import lombok.*;
 public class BoletimInput {
     private String logradouro;
     private String numero;
+    private String complemento;
     private String cnae;
 }
