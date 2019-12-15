@@ -7,5 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface GrupoAtividadeResidencialRepository extends JpaRepository<GrupoAtividadeResidencial, Long> {
-    Optional<GrupoAtividadeResidencial> findByLogradouroAndNumero(String logradouro, Integer numero);
+    Optional<GrupoAtividadeResidencial> findByLogradouroContainingAndNumero(String logradouro, Integer numero);
 }

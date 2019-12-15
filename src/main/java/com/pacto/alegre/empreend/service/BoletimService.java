@@ -29,12 +29,12 @@ public class BoletimService {
 
         String RESIDENCIAL_EXCLUSIVO = "0";
         if(boletimInput.getCnae() == null){ // PONTO DE REFERENCIA
-            Optional<GrupoAtividadeResidencial> optGrupo = grupoAtividadeResidencialRepository.findByLogradouroAndNumero(boletimInput.getLogradouro().toUpperCase(), Integer.parseInt(boletimInput.getNumero()));
+            Optional<GrupoAtividadeResidencial> optGrupo = grupoAtividadeResidencialRepository.findByLogradouroContainingAndNumero(boletimInput.getLogradouro().toUpperCase(), Integer.parseInt(boletimInput.getNumero()));
             if(optGrupo.isPresent()){
                 output.setDeferido(optGrupo.get().getUso().equalsIgnoreCase(RESIDENCIAL_EXCLUSIVO));
             }
         } else {
-            Optional<GrupoAtividadeResidencial> optGrupo = grupoAtividadeResidencialRepository.findByLogradouroAndNumero(boletimInput.getLogradouro().toUpperCase(), Integer.parseInt(boletimInput.getNumero()));
+            Optional<GrupoAtividadeResidencial> optGrupo = grupoAtividadeResidencialRepository.findByLogradouroContainingAndNumero(boletimInput.getLogradouro().toUpperCase(), Integer.parseInt(boletimInput.getNumero()));
             Optional<Atividade> optAtividade = atividadeRepository.findBySubclasse(boletimInput.getCnae());
 
             if(optAtividade.isPresent() && optGrupo.isPresent()) {
