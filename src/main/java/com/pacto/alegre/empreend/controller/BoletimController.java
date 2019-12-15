@@ -21,7 +21,7 @@ public class BoletimController {
     private final BoletimService boletimService;
 
     @GetMapping("previa")
-    @ApiOperation(value = "Consultar as atividades disponiveis.")
+    @ApiOperation(value = "Realizar a validacao prévia do boletim")
     @ApiResponses({@ApiResponse(code = 200, message = "Validacao efetuada com sucesso"),
                    @ApiResponse(code = 500, message = "Erro interno")})
     public ResponseEntity validaPreviaBoletim(BoletimInput boletimInput) {
