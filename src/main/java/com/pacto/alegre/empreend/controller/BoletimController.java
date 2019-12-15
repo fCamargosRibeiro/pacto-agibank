@@ -18,11 +18,11 @@ public class BoletimController {
 
     private final BoletimService boletimService;
 
-    @GetMapping("atividades")
+    @GetMapping("previa")
     @ApiOperation(value = "Consultar as atividades disponiveis.")
     @ApiResponses({@ApiResponse(code = 200, message = "Consulta efetuada com sucesso"),
             @ApiResponse(code = 500, message = "Erro interno")})
-    public ResponseEntity buscarLastroDisponivel(BoletimInput boletimInput) {
+    public ResponseEntity validaPreviaBoletim(BoletimInput boletimInput) {
         return ResponseEntity.ok(boletimService.validacaoPreviaEndereco(boletimInput));
     }
 }

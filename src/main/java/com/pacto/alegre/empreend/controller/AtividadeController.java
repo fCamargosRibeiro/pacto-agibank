@@ -21,7 +21,7 @@ public class AtividadeController {
     @ApiOperation(value = "Consultar as atividades disponiveis.")
     @ApiResponses({@ApiResponse(code = 200, message = "Consulta efetuada com sucesso"),
             @ApiResponse(code = 500, message = "Erro interno")})
-    public ResponseEntity buscarLastroDisponivel() {
+    public ResponseEntity buscarAtividades() {
         return ResponseEntity.ok(atividadeService.findAllAtividade());
     }
 }
